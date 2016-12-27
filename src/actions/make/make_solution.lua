@@ -35,7 +35,7 @@
 		for _, prj in ipairs(sln.projects) do
 			_p('%s: %s', _MAKE.esc(prj.name), table.concat(_MAKE.esc(table.extract(premake.getdependencies(prj), "name")), " "))
 			_p('\t@echo "==== Building %s ($(config)) ===="', prj.name)
-			_p('\t@${MAKE} --no-print-directory -C %s -f %s', _MAKE.esc(path.getrelative(sln.location, prj.location)), _MAKE.esc(_MAKE.getmakefilename(prj, true)))
+			_p('\t@${MAKE} -j --no-print-directory -C %s -f %s', _MAKE.esc(path.getrelative(sln.location, prj.location)), _MAKE.esc(_MAKE.getmakefilename(prj, true)))
 			_p('')
 		end
 

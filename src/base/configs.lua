@@ -176,13 +176,22 @@
 			if not nocopy[field] then
 				if type(value) == "table" then
 					-- merge two lists, removing any duplicates along the way
-					local tbl = dest[field] or { }
-					for _, item in ipairs(value) do
-						if not tbl[item] then
+					local tbl = {}
+
+					for i=0,1 do
+						local tmp
+
+						if field == "includedirs" then
+							if i == 0 then tmp = value else  tmp = dest[ field ] or {} end
+						else
+							if i == 0 then tmp = dest[ field ] or {} else tmp = value end
+						end 
+
+						for _, item in ipairs(tmp) do
 							table.insert(tbl, item)
 							tbl[item] = item
 						end
-					end
+					end	
 					dest[field] = tbl
 				else
 					dest[field] = value
